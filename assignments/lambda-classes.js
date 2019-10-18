@@ -38,29 +38,21 @@ class Person {
 }
 const paul = new Person({
   name: 'Elijah',
-  location: 'New York',
   age: 36,
-  favLanguage: 'Python',
-  specialty: 'Front-end',
-  catchPhrase: `The Big Apple`
+  location: 'New York',
 });
 
 const jasmine = new Person({
     name: 'Jasmine',
-    location: 'Boston',
     age: 24,
-    favLanguage: 'React',
-    specialty: 'Front-end',
-    catchPhrase: `Be You`
+    location: 'Boston',
+   
   });
 
   const jessica = new Person({
     name: 'Jessica',
-    location: 'Thorndale',
     age: 67,
-    favLanguage: 'JavaScript',
-    specialty: 'Full-Stack',
-    catchPhrase: `Live Your Best Life`
+    location: 'Thorndale',
   });
 
 
@@ -87,7 +79,7 @@ class Instructor extends Person {
         return `Today we are learning about ${subject}`;
     }
     grade(student, subject){
-        return `${student} receives a perfect score on ${subject}`;
+        return `${student.name} receives a perfect score on ${subject}`;
     }
 }
 
@@ -139,13 +131,17 @@ class Student extends Person {
         this.favSubjects = profile.favSubjects
     }
     listSubjects(){
-        console.log();
+        let endString = '';
+        for (let i = 0; i < this.favSubjects.length; i++){
+            endString += this.favSubjects[i] + '\n';
+        }
+        return endString;
     }
-    PRAssignment(){
-        return `Hello my name is ${this.name}, I am from ${this.location}`;
+    PRAssignment(subject){
+        return `${this.name} has submitted a pull request ${subject}`;
     }
-    sprintChallenge(){
-        return `Hello my name is ${this.name}, I am from ${this.location}`;
+    sprintChallenge(subject){
+        return `${this.name} has begun spring challenge on ${subject}`;
     }
 }
 const eddie = new Student({
@@ -154,7 +150,9 @@ const eddie = new Student({
   age: 33,
   favLanguage: 'JavaScript',
   specialty: 'Front-end',
-  catchPhrase: `Heyyyy`
+  catchPhrase: `Heyyyy`,
+  favSubjects: ["Math", "Science", "Art"]
+
 });
 
 const joy = new Student({
@@ -192,11 +190,11 @@ class ProjectManager extends Instructor {
         this.gradClassName = profile.gradClassName,
         this.favInstructor = profile.favInstructor
     }
-    standup(){
-        return `Hello my name is ${this.name}, I am from ${this.location}`;
+    standup(slackchannel){
+        return `${this.name} announces to ${slackchannel} @channel standy time!`;
     }
-    debugsCode(){
-        return `Hello my name is ${this.name}, I am from ${this.location}`;
+    debugsCode(student, subject){
+        return `${this.name} debugs ${student.name}'s code on ${subject}`;
     }
 }
 const miley = new ProjectManager({
@@ -226,5 +224,18 @@ const isa = new ProjectManager({
     catchPhrase: `We only have one life`
   });
 
+  //Person
+  console.log(jose.speak())
+
+  //Instructor
   console.log(jose.demo("Math"))
-  console.log(jose.grade())
+  console.log(jose.grade(eddie, "Javascript"))
+
+  //Student
+  console.log(eddie.listSubjects())
+  console.log(eddie.PRAssignment("Javascript"))
+  console.log(eddie.sprintChallenge("Javascript"))
+
+  //Project Manager
+  console.log(isa.standup("Web25"))
+  console.log(isa.debugsCode(eddie, "Javascript"))
